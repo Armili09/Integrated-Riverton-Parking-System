@@ -1,6 +1,6 @@
 # Integrated Riverton Parking System
 
-A comprehensive, full-stack parking management ecosystem designed to streamline civic services for both citizens and parking enforcement officers. This project replaces fragmented legacy systems with a modern, unified platform backed by a relationally robust MSSQL database.
+A parking management ecosystem designed to streamline civic services for both citizens and parking enforcement officers. This project replaces fragmented legacy systems with a modern, unified platform backed by a relationally robust MSSQL database.
 
 ## 🚀 Features
 
