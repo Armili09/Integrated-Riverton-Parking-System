@@ -30,8 +30,7 @@ const Payments = ({ user, navigate }) => {
     (sum, c) => sum + c.fine_amount,
     0,
   );
-  const permitFees = 150;
-  const total = permitFees + unpaidFines;
+  const total = unpaidFines;
 
   if (loading)
     return <div className="screen-container">Loading payments...</div>;
@@ -178,18 +177,6 @@ const Payments = ({ user, navigate }) => {
             style={{
               display: "flex",
               justifyContent: "space-between",
-              marginBottom: "12px",
-              color: "#2563eb",
-              fontSize: "14px",
-            }}
-          >
-            <span>Permit Fees (1)</span>
-            <span>${permitFees.toFixed(2)}</span>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
               marginBottom: "16px",
               color: "#2563eb",
               fontSize: "14px",
@@ -212,26 +199,41 @@ const Payments = ({ user, navigate }) => {
             <span>Total Outstanding</span>
             <span>${total.toFixed(2)}</span>
           </div>
-          <button
-            className="btn-primary"
-            onClick={() =>
-              navigate("payBalance", {
-                permitFees,
-                unpaidFines,
-                total,
-                unpaidCitations,
-              })
-            }
-            style={{
-              width: "100%",
-              marginTop: "20px",
-              padding: "12px",
-              borderRadius: "8px",
-              fontSize: "16px",
-            }}
-          >
-            Pay Balance
-          </button>
+          {total > 0 ? (
+            <button
+              className="btn-primary"
+              onClick={() =>
+                navigate("payBalance", {
+                  permitFees: 0,
+                  unpaidFines,
+                  total,
+                  unpaidCitations,
+                })
+              }
+              style={{
+                width: "100%",
+                marginTop: "20px",
+                padding: "12px",
+                borderRadius: "8px",
+                fontSize: "16px",
+              }}
+            >
+              Pay Balance
+            </button>
+          ) : (
+            <div
+              style={{
+                marginTop: "20px",
+                padding: "12px",
+                textAlign: "center",
+                color: "#1d4ed8",
+                fontWeight: 600,
+                fontSize: "15px",
+              }}
+            >
+              You have no outstanding balances.
+            </div>
+          )}
         </div>
 
         {/* Tab Selector */}

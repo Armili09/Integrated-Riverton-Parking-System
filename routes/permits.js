@@ -23,10 +23,15 @@ router.get("/user/:userId", async (req, res) => {
 // Apply for Permit
 router.post("/", async (req, res) => {
   try {
-    const { license_number, type } = req.body;
+    const { license_number, type, end_date } = req.body;
     const permit_id = 'P' + Math.floor(Math.random() * 100000000).toString();
-    const expiry = new Date();
-    expiry.setFullYear(expiry.getFullYear() + 1); // 1 year expiry
+    
+    let expiry = new Date();
+    if (end_date) {
+      expiry = new Date(end_date);
+    } else {
+      expiry.setFullYear(expiry.getFullYear() + 1); // fallback to 1 year
+    }
     const application_date = new Date();
     
     // Determine status based on type

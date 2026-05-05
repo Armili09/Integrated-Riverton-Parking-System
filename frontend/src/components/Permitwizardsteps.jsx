@@ -44,7 +44,7 @@ export const StepSelectType = ({ formData, onSelect }) => (
           desc: "Free permit for disabled parking",
         },
         {
-          id: "Visitor Parking",
+          id: "Visitor",
           icon: "🪪",
           desc: "Short-term permits for guests",
         },

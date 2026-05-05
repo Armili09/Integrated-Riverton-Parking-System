@@ -57,28 +57,31 @@ const Permits = ({ user, navigate }) => {
       const startDate = new Date();
       let endDate = new Date();
 
-      // Parse duration (e.g., "1 Month", "3 Months", "1 Year", "1 Day", "1 Week")
-      const durationValue = parseInt(formData.duration);
-      const durationUnit = formData.duration.includes("Month")
-        ? "months"
-        : formData.duration.includes("Year")
-          ? "years"
-          : formData.duration.includes("Week")
-            ? "weeks"
-            : "days";
+      if (formData.duration === "Permanent") {
+        endDate.setFullYear(endDate.getFullYear() + 99);
+      } else {
+        const durationValue = parseInt(formData.duration);
+        const durationUnit = formData.duration.includes("Month")
+          ? "months"
+          : formData.duration.includes("Year")
+            ? "years"
+            : formData.duration.includes("Week")
+              ? "weeks"
+              : "days";
 
-      switch (durationUnit) {
-        case "months":
-          endDate.setMonth(endDate.getMonth() + durationValue);
-          break;
-        case "years":
-          endDate.setFullYear(endDate.getFullYear() + durationValue);
-          break;
-        case "weeks":
-          endDate.setDate(endDate.getDate() + durationValue * 7);
-          break;
-        default:
-          endDate.setDate(endDate.getDate() + durationValue);
+        switch (durationUnit) {
+          case "months":
+            endDate.setMonth(endDate.getMonth() + durationValue);
+            break;
+          case "years":
+            endDate.setFullYear(endDate.getFullYear() + durationValue);
+            break;
+          case "weeks":
+            endDate.setDate(endDate.getDate() + durationValue * 7);
+            break;
+          default:
+            endDate.setDate(endDate.getDate() + durationValue);
+        }
       }
 
       // Find the price for the selected duration
@@ -967,7 +970,7 @@ const Permits = ({ user, navigate }) => {
         </div>
 
         {activeTab === "Active" ? (
-          permits.length === 0 ? (
+          permits.filter(p => p.status !== 'Pending').length === 0 ? (
             <div
               style={{
                 textAlign: "center",
@@ -978,21 +981,22 @@ const Permits = ({ user, navigate }) => {
               No active permits found.
             </div>
           ) : (
-            permits.map((p) => {
+            permits.filter(p => p.status !== 'Pending').map((p) => {
               const daysLeft = Math.ceil(
                 (new Date(p.expiry) - new Date()) / (1000 * 60 * 60 * 24),
               );
               const canRenew = daysLeft <= 30; // includes expired (negative daysLeft)
               return (
-                <div
-                  key={p.permit_id}
-                  className="card"
-                  style={{
-                    padding: "24px",
-                    borderRadius: "16px",
-                    border: "1px solid rgba(0,0,0,0.05)",
-                  }}
-                >
+                  <div
+                    key={p.permit_id}
+                    className="card"
+                    style={{
+                      padding: "24px",
+                      borderRadius: "16px",
+                      border: daysLeft <= 0 ? "2px solid rgba(255, 59, 48, 0.3)" : "1px solid rgba(0,0,0,0.05)",
+                      backgroundColor: daysLeft <= 0 ? "#fff5f5" : "white",
+                    }}
+                  >
                   <div
                     style={{
                       display: "flex",
@@ -1095,11 +1099,12 @@ const Permits = ({ user, navigate }) => {
                     <div
                       style={{
                         padding: "4px 12px",
-                        border: "1px solid #ff9500",
-                        color: "#ff9500",
-                        borderRadius: "4px",
+                        border: daysLeft <= 0 ? "none" : "1px solid #ff9500",
+                        backgroundColor: daysLeft <= 0 ? "rgba(255, 59, 48, 0.15)" : "transparent",
+                        color: daysLeft <= 0 ? "var(--error)" : "#ff9500",
+                        borderRadius: "8px",
                         fontSize: "12px",
-                        fontWeight: 600,
+                        fontWeight: 700,
                       }}
                     >
                       {daysLeft > 0 ? `${daysLeft} days left` : "Expired"}

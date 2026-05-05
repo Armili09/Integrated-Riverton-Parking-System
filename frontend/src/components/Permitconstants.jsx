@@ -16,7 +16,7 @@ export const PERMIT_DURATIONS = {
     { l: "2 Years", p: "Free" },
     { l: "Permanent", p: "Free" },
   ],
-  "Visitor Parking": [
+  Visitor: [
     { l: "1 Day", p: "$7" },
     { l: "3 Days", p: "$20" },
     { l: "7 Days", p: "$40" },
@@ -29,7 +29,7 @@ export const ZONES = [
     name: "Zone A",
     desc: "Residential Parking",
     available: true,
-    rate: "$150/yr",
+    rate: "Varies by duration",
     time: "Mon–Fri, 8AM–6PM",
   },
   {
@@ -37,7 +37,7 @@ export const ZONES = [
     name: "Zone B",
     desc: "Commercial / Visitor",
     available: true,
-    rate: "$4/hr",
+    rate: "Varies by duration",
     time: "Mon–Sat, 8AM–8PM",
   },
   {
@@ -45,7 +45,7 @@ export const ZONES = [
     name: "Zone C",
     desc: "High Demand Area",
     available: false,
-    rate: "$6.50/hr",
+    rate: "Varies by duration",
     time: "Daily, 24/7",
   },
 ];
