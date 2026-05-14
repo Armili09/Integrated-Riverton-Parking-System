@@ -2,6 +2,8 @@
 
 A parking management ecosystem designed to streamline civic services for both citizens and parking enforcement officers. This project replaces fragmented legacy systems with a modern, unified platform backed by a relationally robust MSSQL database.
 
+[![Watch the Riverton demo](https://img.youtube.com/vi/Kz-W_rJ47v8/maxresdefault.jpg)](https://youtu.be/Kz-W_rJ47v8)
+
 ## 🚀 Features
 
 ### 👤 Citizen Portal (User App)
